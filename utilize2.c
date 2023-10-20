@@ -28,3 +28,4 @@ char *constr_ct(char *token, char *value)
 
 	return (COmmand);
 }
+

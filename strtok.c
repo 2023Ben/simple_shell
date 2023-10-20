@@ -47,3 +47,4 @@ char *TRok1(char *str, const char *delim)
 	}
 	return (ts);
 }
+

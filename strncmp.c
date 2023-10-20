@@ -15,7 +15,7 @@
 
 int _strncmp(char *s1, char *s2, unsigned int n)
 {
-	for ( ;(*s1 && (*s1 == *s2) && n); )
+	for ( ; (*s1 && (*s1 == *s2) && n); )
 	{
 		s1++;
 		s2++;
@@ -23,9 +23,7 @@ int _strncmp(char *s1, char *s2, unsigned int n)
 	}
 
 	if (n == 0)
-    {
 		return (0);
-    }
 
 	return (*(const unsigned char *)s1 - *(const unsigned char *)s2);
 }

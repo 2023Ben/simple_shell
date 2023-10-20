@@ -9,7 +9,7 @@
 
 int Path(char **command, char **env)
 {
-	char *Atarr, *s, *path = _getenv("PATH", env);
+	char *Atarr, *s, *path = give("PATH", env);
 	struct stat st;
 
 	Atarr = TRok1(path, ":");
@@ -31,4 +31,5 @@ int Path(char **command, char **env)
 
 	free(path);
 	return (-1);
+
 }

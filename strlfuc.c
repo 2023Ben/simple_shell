@@ -129,3 +129,4 @@ int strl(char *s)
 
 	return (_len);
 }
+

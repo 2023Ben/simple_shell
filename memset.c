@@ -46,3 +46,4 @@ unsigned int DELIM(char c, const char *str)
 	}
 	return (-2);
 }
+

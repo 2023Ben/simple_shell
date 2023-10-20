@@ -15,6 +15,6 @@ int main(int argc, char **argv, char **env)
 	char *COmmand[20];
 
 	(void)argc;
-	REPL(BUF, BUFlen, COmmand, argv, env);
+	ICATE(BUF, BUFlen, COmmand, argv, env);
 	return (0);
 }

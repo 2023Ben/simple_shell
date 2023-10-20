@@ -2,7 +2,7 @@
 
 /**
  * _putchar - print a char
- * @ch: char
+ * @h: char
  * Return: int
  */
 

@@ -2,13 +2,13 @@
 #include <string.h>
 
 /**
- * _getenv - return a env and its values
+ * give - return a env and its values
  * @target: env to be return
  * @environ: array of env
  * Return: env and values on Success, NULL on Failure
  */
 
-char *_getenv(char *target, char **environ)
+char *give(char *target, char **environ)
 {
 	char *path;
 	int i = 0;
@@ -25,3 +25,4 @@ char *_getenv(char *target, char **environ)
 
 	return (NULL);
 }
+

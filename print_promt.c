@@ -9,3 +9,4 @@ void i_wan_print(void)
 {
 	_printf(":) ");
 }
+

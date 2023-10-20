@@ -25,3 +25,4 @@ char *RTSUP(char *str)
 
 	return (str2);
 }
+

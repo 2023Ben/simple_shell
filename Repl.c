@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 /**
- * REPL - read eval print loop
+ * ICATE - read eval print loop
  * @BUF: command to be executed
  * @BUFlen: length of the command
  * @COmmand : array to store command and argument
@@ -12,10 +12,10 @@
  */
 
 
-int REPL(char *BUF, size_t BUFlen, char **COmmand, char **argv, char **env)
+int ICATE(char *BUF, size_t BUFlen, char **COmmand, char **argv, char **env)
 {
 
-	while (1) 
+	while (1)
 	{
 		if (isatty(STDIN_FILENO))
 			i_wan_print();
@@ -45,3 +45,4 @@ int REPL(char *BUF, size_t BUFlen, char **COmmand, char **argv, char **env)
 	}
 	return (0);
 }
+
