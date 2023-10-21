@@ -8,6 +8,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <stddef.h>
 
 
 size_t mystrl(const char *str);

@@ -1,4 +1,8 @@
 #include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <string.h>
 
 /**
  * Path - add the rightful path to the command enter by the user

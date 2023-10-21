@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <stdio.h>
 
 /**
  * pass - separate command from argumets

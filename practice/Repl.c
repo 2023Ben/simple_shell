@@ -1,5 +1,8 @@
 #include "main.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stddef.h>
 
 /**
  * ICATE - read eval print loop
@@ -15,8 +18,8 @@
 int ICATE(char *BUF, size_t BUFlen, char **COmmand, char **argv, char **env)
 {
 
-	while (1)
-	{
+	
+	do{
 		if (isatty(STDIN_FILENO))
 			i_wan_print();
 		read_COmmand(&BUF, &BUFlen);
@@ -42,7 +45,7 @@ int ICATE(char *BUF, size_t BUFlen, char **COmmand, char **argv, char **env)
 			exit_arg(COmmand, argv, BUF);
 		}
 		run_COmmand(COmmand, argv, env);
-	}
+	} while (1);
 	return (0);
 }
 
