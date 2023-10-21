@@ -1,22 +1,22 @@
 #include "shelly.h"
 
 /**
- * interactive - returns true if shell is interactive mode
+ * myinteract - returns true if shell is myinteract mode
  * @info: struct address
  *
- * Return: 1 if interactive mode, 0 otherwise
+ * Return: 1 if myinteract mode, 0 otherwise
  */
-int interactive(info_t *info)
+int myinteract(info_t *info)
 {
 	return (isatty(STDIN_FILENO) && info->readfd <= 2);
 }
 /**
- * is_delim - checks if character is a delimeter
+ * check_del - checks if character is a delimeter
  * @ci: the char to check
  * @delim1: the delimeter string
  * Return: 1 if true, 0 if false
  */
-int is_delim(char ci, char *delim1)
+int check_del(char ci, char *delim1)
 {
 	while (*delim1)
 		if (*delim1++ == ci)
@@ -24,11 +24,11 @@ int is_delim(char ci, char *delim1)
 	return (0);
 }
 /**
- *_isalpha - checks for alphabetic character
+ *hasalpha - checks for alphabetic character
  *@cl: The character to input
  *Return: 1 if c is alphabetic, 0 otherwise
  */
-int _isalpha(int cl)
+int hasalpha(int cl)
 {
 	if ((cl >= 'a' && cl <= 'z') || (cl >= 'A' && cl <= 'Z'))
 		return (1);
@@ -36,11 +36,11 @@ int _isalpha(int cl)
 		return (0);
 }
 /**
- *_atoi - converts a string to an integer
+ *A_toi - converts a string to an integer
  *@s1: the string to be converted
  *Return: 0 if no numbers in string, converted number otherwise
  */
-int _atoi(char *s1)
+int A_toi(char *s1)
 {
 	int x, sign = 1, flag = 0, output;
 	unsigned int result = 0;

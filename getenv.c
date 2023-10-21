@@ -10,7 +10,7 @@ char **get_environ(info_t *info1)
 {
 if (!info1->environ || info1->env_changed)
 {
-info1->environ = list_to_strings(info1->env);
+info1->environ = mylisto_strings(info1->env);
 info1->env_changed = 0;
 }
 return (info1->environ);
@@ -25,7 +25,7 @@ return (info1->environ);
 */
 int _unsetenv(info_t *info1, char *var1)
 {
-list_t *node1 = info1->env;
+mylist *node1 = info1->env;
 size_t i1 = 0;
 char *p1;
 
@@ -33,7 +33,7 @@ if (!node1 || !var1)
 return (0);
 while (node1)
 {
-p1 = starts_with(node1->str, var1);
+p1 = first_with(node1->str, var1);
 if (p1 && *p1 == '=')
 {
 info1->env_changed = delete_node_at_index(&(info1->env), i1);
@@ -59,21 +59,21 @@ return (info1->env_changed);
 int _setenv(info_t *info1, char *var1, char *value1)
 {
 char *buf1 = NULL;
-list_t *node1;
+mylist *node1;
 char *p1;
 
 if (!var1 || !value1)
 return (0);
-buf1 = malloc(_strlen(var1) + _strlen(value1) + 2);
+buf1 = malloc(_mystrlength(var1) + _mystrlength(value1) + 2);
 if (!buf1)
 return (1);
-_strcpy(buf1, var1);
-_strcat(buf1, "=");
-_strcat(buf1, value1);
+my_cpy(buf1, var1);
+_my_cat(buf1, "=");
+_my_cat(buf1, value1);
 node1 = info1->env;
 while (node1)
 {
-p1 = starts_with(node1->str, var1);
+p1 = first_with(node1->str, var1);
 if (p1 && *p1 == '=')
 {
 free(node1->str);
@@ -83,7 +83,7 @@ return (0);
 }
 node1 = node1->next;
 }
-add_node_end(&(info1->env), buf1, 0);
+plac_node_end(&(info1->env), buf1, 0);
 free(buf1);
 info1->env_changed = 1;
 return (0);

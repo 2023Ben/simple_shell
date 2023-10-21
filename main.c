@@ -26,11 +26,11 @@ if (errno == EACCES)
 exit(126);
 if (errno == ENOENT)
 {
-_eputs(av1[0]);
-_eputs(": 0: Can't open ");
-_eputs(av1[1]);
-_eputchar('\n');
-_eputchar(BUF_FLUSH);
+_theputs(av1[0]);
+_theputs(": 0: Can't open ");
+_theputs(av1[1]);
+theputstr('\n');
+theputstr(b_flush);
 exit(127);
 }
 return (EXIT_FAILURE);
@@ -39,7 +39,7 @@ info1->readfd = fd1;
 }
 populate_env_list(info1);
 read_history(info1);
-hsh(info1, av1);
+myhsh(info1, av1);
 return (EXIT_SUCCESS);
 }
 

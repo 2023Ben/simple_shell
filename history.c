@@ -14,13 +14,13 @@ dir1 = _getenv(info, "HOME=");
 
 if (!dir1)
 return (NULL);
-buf1 = malloc(sizeof(char) * (_strlen(dir1) + _strlen(HIST_FILE) + 2));
+buf1 = malloc(sizeof(char) * (_mystrlength(dir1) + _mystrlength(old_file) + 2));
 if (!buf1)
 return (NULL);
 buf1[0] = 0;
-_strcpy(buf1, dir1);
-_strcat(buf1, "/");
-_strcat(buf1, HIST_FILE);
+my_cpy(buf1, dir1);
+_my_cat(buf1, "/");
+_my_cat(buf1, old_file);
 return (buf1);
 }
 
@@ -35,7 +35,7 @@ int write_history(info_t *info)
 ssize_t fd;
 char *filename1 = get_history_file(info);
 
-list_t *node1 = NULL;
+mylist *node1 = NULL;
 
 if (!filename1)
 return (-1);
@@ -45,10 +45,10 @@ if (fd == -1)
 return (-1);
 for (node1 = info->history; node1; node1 = node1->next)
 {
-_putsfd(node1->str, fd);
-_putfd('\n', fd);
+_myplacefd(node1->str, fd);
+_myputfd('\n', fd);
 }
-_putfd(BUF_FLUSH, fd);
+_myputfd(b_flush, fd);
 close(fd);
 return (1);
 }
@@ -88,34 +88,34 @@ for (i1 = 0; i1 < fsize1; i1++)
 if (buf1[i1] == '\n')
 {
 buf1[i1] = 0;
-build_history_list(info, buf1 + last1, linecount1++);
+mybuild_history_list(info, buf1 + last1, linecount1++);
 last1 = i1 + 1;
 }
 if (last1 != i1)
-build_history_list(info, buf1 + last1, linecount1++);
+mybuild_history_list(info, buf1 + last1, linecount1++);
 free(buf1);
 info->histcount = linecount1;
-while (info->histcount-- >= HIST_MAX)
+while (info->histcount-- >= old_max)
 delete_node_at_index(&(info->history), 0);
 renumber_history(info);
 return (info->histcount);
 }
 
 /**
-* build_history_list - adds entry to a history linked list
+* mybuild_history_list - adds entry to a history linked list
 * @info: Structure containing potential arguments. Used to maintain
 * @buf1: buffer
 * @linecount1: the history linecount, histcount
 *
 * Return: Always 0
 */
-int build_history_list(info_t *info, char *buf1, int linecount1)
+int mybuild_history_list(info_t *info, char *buf1, int linecount1)
 {
-list_t *node1 = NULL;
+mylist *node1 = NULL;
 
 if (info->history)
 node1 = info->history;
-add_node_end(&node1, buf1, linecount1);
+plac_node_end(&node1, buf1, linecount1);
 if (!info->history)
 info->history = node1;
 return (0);
@@ -129,7 +129,7 @@ return (0);
 */
 int renumber_history(info_t *info)
 {
-list_t *node1 = info->history;
+mylist *node1 = info->history;
 int i1 = 0;
 
 while (node1)

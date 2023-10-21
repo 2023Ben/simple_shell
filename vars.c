@@ -16,18 +16,18 @@ if (buf1[j1] == '|' && buf1[j1 + 1] == '|')
 {
 buf1[j1] = 0;
 j1++;
-info1->cmd_buf_type = CMD_OR;
+info1->cmd_buf_type = command_or;
 }
 else if (buf1[j1] == '&' && buf1[j1 + 1] == '&')
 {
 buf1[j1] = 0;
 j1++;
-info1->cmd_buf_type = CMD_AND;
+info1->cmd_buf_type = command_and;
 }
 else if (buf1[j1] == ';') /* found the end of this command */
 {
 buf1[j1] = 0; /* replace semicolon with null */
-info1->cmd_buf_type = CMD_CHAIN;
+info1->cmd_buf_type = command_chain;
 }
 else
 return (0);
@@ -49,7 +49,7 @@ void check_chain(info_t *info1, char *buf1, size_t *p1, size_t i1, size_t len1)
 {
 size_t j1 = *p1;
 
-if (info1->cmd_buf_type == CMD_AND)
+if (info1->cmd_buf_type == command_and)
 {
 if (info1->status)
 {
@@ -57,7 +57,7 @@ buf1[i1] = 0;
 j1 = len1;
 }
 }
-if (info1->cmd_buf_type == CMD_OR)
+if (info1->cmd_buf_type == command_or)
 {
 if (!info1->status)
 {
@@ -77,19 +77,19 @@ j1 = len1;
 int replace_alias(info_t *info1)
 {
 int i1;
-list_t *node1;
+mylist *node1;
 char *p1;
 
 for (i1 = 0; i1 < 10; i1++)
 {
-node1 = node_starts_with(info1->alias, info1->argv[0], '=');
+node1 = node_first_with(info1->alias, info1->argv[0], '=');
 if (!node1)
 return (0);
 free(info1->argv[0]);
-p1 = _strchr(node1->str, '=');
+p1 = chr_str(node1->str, '=');
 if (!p1)
 return (0);
-p1 = _strdup(p1 + 1);
+p1 = strd_up(p1 + 1);
 if (!p1)
 return (0);
 info1->argv[0] = p1;
@@ -107,32 +107,32 @@ int replace_vars(info_t *info1)
 {
 int i1 = 0;
 
-list_t *node1;
+mylist *node1;
 
 for (i1 = 0; info1->argv[i1]; i1++)
 {
 if (info1->argv[i1][0] != '$' || !info1->argv[i1][1])
 continue;
-if (!_strcmp(info1->argv[i1], "$?"))
+if (!_mycmp(info1->argv[i1], "$?"))
 {
 replace_string(&(info1->argv[i1]),
-_strdup(convert_number(info1->status, 10, 0)));
+strd_up(vert_num(info1->status, 10, 0)));
 continue;
 }
-if (!_strcmp(info1->argv[i1], "$$"))
+if (!_mycmp(info1->argv[i1], "$$"))
 {
 replace_string(&(info1->argv[i1]),
-_strdup(convert_number(getpid(), 10, 0)));
+strd_up(vert_num(getpid(), 10, 0)));
 continue;
 }
-node1 = node_starts_with(info1->env, &info1->argv[i1][1], '=');
+node1 = node_first_with(info1->env, &info1->argv[i1][1], '=');
 if (node1)
 {
 replace_string(&(info1->argv[i1]),
-_strdup(_strchr(node1->str, '=') + 1));
+strd_up(chr_str(node1->str, '=') + 1));
 continue;
 }
-replace_string(&info1->argv[i1], _strdup(""));
+replace_string(&info1->argv[i1], strd_up(""));
 }
 return (0);
 }

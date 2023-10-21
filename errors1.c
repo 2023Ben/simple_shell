@@ -1,12 +1,12 @@
 #include "shelly.h"
 
 /**
- * _erratoi - converts a string to an integer
+ * Ra_atoi - converts a string to an integer
  * @s1: the string to be converted
  * Return: 0 if no numbers in string, converted number otherwise
  *       -1 on error
  */
-int _erratoi(char *s1)
+int Ra_atoi(char *s1)
 {
 	int ij = 0;
 	unsigned long int result1 = 0;
@@ -28,37 +28,37 @@ int _erratoi(char *s1)
 	return (result1);
 }
 /**
- * print_error - prints an error message
+ * put_myerror - prints an error message
  * @info: the parameter & return info struct
  * @est: string containing specified error type
  * Return: 0 if no numbers in string, converted number otherwise
  *        -1 on error
  */
-void print_error(info_t *info, char *est)
+void put_myerror(info_t *info, char *est)
 {
-	_eputs(info->fname);
-	_eputs(": ");
-	print_d(info->line_count, STDERR_FILENO);
-	_eputs(": ");
-	_eputs(info->argv[0]);
-	_eputs(": ");
-	_eputs(est);
+	_theputs(info->fname);
+	_theputs(": ");
+	place_d(info->line_count, STDERR_FILENO);
+	_theputs(": ");
+	_theputs(info->argv[0]);
+	_theputs(": ");
+	_theputs(est);
 }
 /**
- * print_d - function prints a decimal (integer) number (base 10)
+ * place_d - function prints a decimal (integer) number (base 10)
  * @input: the input
  * @fd: the filedescriptor to write to
  *
  * Return: number of characters printed
  */
-int print_d(int input1, int fd1)
+int place_d(int input1, int fd1)
 {
 	int (*__putchar)(char) = _putchar;
 	int i1, count1 = 0;
 	unsigned int _abs1, current1;
 
 	if (fd1 == STDERR_FILENO)
-		__putchar = _eputchar;
+		__putchar = theputstr;
 	if (input1 < 0)
 	{
 		_abs1 = input1;
@@ -82,14 +82,14 @@ int print_d(int input1, int fd1)
 	return (count1);
 }
 /**
- * convert_number - converter function, a clone of itoa
+ * vert_num - converter function, a clone of itoa
  * @nu: number
  * @bas: base
  * @flag: argument flags
  *
  * Return: string
  */
-char *convert_number(long int nu, int bas, int flag)
+char *vert_num(long int nu, int bas, int flag)
 {
 	static char *array1;
 	static char buffer1[50];
@@ -97,12 +97,12 @@ char *convert_number(long int nu, int bas, int flag)
 	char *ptr1;
 	unsigned long n1 = nu;
 
-	if (!(flag & CONVERT_UNSIGNED) && nu < 0)
+	if (!(flag & convert_unsigned) && nu < 0)
 	{
 		n1 = -nu;
 		sign1 = '-';
 	}
-	array1 = flag & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
+	array1 = flag & con_lower ? "0123456789abcdef" : "0123456789ABCDEF";
 	ptr1 = &buffer1[49];
 	*ptr1 = '\0';
 	do	{
@@ -114,12 +114,12 @@ char *convert_number(long int nu, int bas, int flag)
 	return (ptr1);
 }
 /**
- * remove_comments - function replaces first instance of '#' with '\0'
+ * move_del - function replaces first instance of '#' with '\0'
  * @buf: address of the string to modify
  *
  * Return: Always 0;
  */
-void remove_comments(char *buf)
+void move_del(char *buf)
 {
 	int ij;
 

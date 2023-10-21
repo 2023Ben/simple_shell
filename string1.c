@@ -1,13 +1,13 @@
 #include "shelly.h"
 
 /**
-* _strcpy - copies a string
+* my_cpy - copies a string
 * @dest1: the destination
 * @src1: the source
 *
 * Return: pointer to destination
 */
-char *_strcpy(char *dest1, char *src1)
+char *my_cpy(char *dest1, char *src1)
 {
 int i1 = 0;
 
@@ -23,12 +23,12 @@ return (dest1);
 }
 
 /**
-* _strdup - duplicates a string
+* strd_up - duplicates a string
 * @str1: the string to duplicate
 *
 * Return: pointer to the duplicated string
 */
-char *_strdup(const char *str1)
+char *strd_up(const char *str1)
 {
 int length1 = 0;
 char *ret1;
@@ -46,12 +46,12 @@ return (ret1);
 }
 
 /**
-* _puts - prints an input string
+* _myplace - prints an input string
 * @str1: the string to be printed
 *
 * Return: Nothing
 */
-void _puts(char *str1)
+void _myplace(char *str1)
 {
 int i1 = 0;
 
@@ -74,14 +74,14 @@ i1++;
 int _putchar(char c1)
 {
 static int i1;
-static char buf1[WRITE_BUF_SIZE];
+static char buf1[W_B_size];
 
-if (c1 == BUF_FLUSH || i1 >= WRITE_BUF_SIZE)
+if (c1 == b_flush || i1 >= W_B_size)
 {
 write(1, buf1, i1);
 i1 = 0;
 }
-if (c1 != BUF_FLUSH)
+if (c1 != b_flush)
 buf1[i1++] = c1;
 return (1);
 }

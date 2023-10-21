@@ -1,12 +1,12 @@
 #include "shelly.h"
 
 /**
-* **strtow - splits a string into words. Repeat delimiters are ignored
+* **st_tow - splits a string into words. Repeat delimiters are ignored
 * @input_str: the input string
 * @delimiters: the delimiter string
 * Return: a pointer to an array of strings, or NULL on failure
 */
-char **strtow(char *input_str, char *delimiters)
+char **st_tow(char *input_str, char *delimiters)
 {
 int i1, j1, k1, m1, num_words = 0;
 char **words;
@@ -16,7 +16,7 @@ return (NULL);
 if (!delimiters)
 delimiters = " ";
 for (i1 = 0; input_str[i1] != '\0'; i1++)
-if (!is_delim(input_str[i1], delimiters) && (is_delim(input_str[i1 + 1], delimiters) || !input_str[i1 + 1]))
+if (!check_del(input_str[i1], delimiters) && (check_del(input_str[i1 + 1], delimiters) || !input_str[i1 + 1]))
 num_words++;
 if (num_words == 0)
 return (NULL);
@@ -25,10 +25,10 @@ if (!words)
 return (NULL);
 for (i1 = 0, j1 = 0; j1 < num_words; j1++)
 {
-for (; is_delim(input_str[i1], delimiters);)
+for (; check_del(input_str[i1], delimiters);)
 i1++;
 k1 = 0;
-while (!is_delim(input_str[i1 + k1], delimiters) && input_str[i1 + k1])
+while (!check_del(input_str[i1 + k1], delimiters) && input_str[i1 + k1])
 k1++;
 words[j1] = malloc((k1 + 1) * sizeof(char));
 if (!words[j1])
@@ -47,12 +47,12 @@ return (words);
 }
 
 /**
-* **strtow2 - splits a string into words
+* **st_tow2 - splits a string into words
 * @input_str: the input string
 * @delimiter: the delimiter
 * Return: a pointer to an array of strings, or NULL on failure
 */
-char **strtow2(char *input_str, char delimiter)
+char **st_tow2(char *input_str, char delimiter)
 {
 int i1, j1, k1, m1, num_words = 0;
 char **words;

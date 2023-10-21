@@ -15,11 +15,11 @@ size_t len_p1 = 0;
 
 if (!*len) /* if nothing left in the buffer, fill it */
 {
-/*bfree((void **)info->cmd_buf);*/
+/*my_freed((void **)info->cmd_buf);*/
 free(*buf);
 *buf = NULL;
 signal(SIGINT, sigintHandler);
-#if USE_GETLINE
+#if use_getl
 r1 = getline(buf, &len_p1, stdin);
 #else
 r1 = _getline(info, buf, &len_p1);
@@ -32,9 +32,9 @@ if ((*buf)[r1 - 1] == '\n')
 r1--;
 }
 info->linecount_flag = 1;
-remove_comments(*buf);
-build_history_list(info, *buf, info->histcount++);
-/* if (_strchr(*buf, ';')) is this a command chain? */
+move_del(*buf);
+mybuild_history_list(info, *buf, info->histcount++);
+/* if (chr_str(*buf, ';')) is this a command chain? */
 {
 *len = r1;
 info->cmd_buf = buf;
@@ -57,7 +57,7 @@ static size_t i1, j1, len1;
 ssize_t r1 = 0;
 char **buf_p1 = &(info->arg), *p1;
 
-_putchar(BUF_FLUSH);
+_putchar(b_flush);
 r1 = input_buf(info, &buf1, &len1);
 if (r1 == -1) /* EOF */
 return (-1);
@@ -76,10 +76,10 @@ i1 = j1 + 1; /* increment past nulled ';'' */
 if (i1 >= len1) /* reached end of buffer? */
 {
 i1 = len1 = 0; /* reset position and length */
-info->cmd_buf_type = CMD_NORM;
+info->cmd_buf_type = Command_Norm;
 }
 *buf_p1 = p1; /* pass back pointer to current command position */
-return (_strlen(p1)); /* return length of current command */
+return (_mystrlength(p1)); /* return length of current command */
 }
 *buf_p1 = buf1; /* else not a chain, pass back buffer from _getline() */
 return (r1); /* return length of buffer from _getline() */
@@ -130,15 +130,15 @@ i1 = len1 = 0;
 r1 = read_buf(info, buf1, &len1);
 if (r1 == -1 || (r1 == 0 && len1 == 0))
 return (-1);
-c1 = _strchr(buf1 + i1, '\n');
+c1 = chr_str(buf1 + i1, '\n');
 k1 = c1 ? 1 + (unsigned int)(c1 - buf1) : len1;
-new_p1 = _realloc(p1, s1, s1 ? s1 + k1 : k1 + 1);
+new_p1 = re_alloc(p1, s1, s1 ? s1 + k1 : k1 + 1);
 if (!new_p1) /* MALLOC FAILURE! */
 return (p1 ? free(p1), -1 : -1);
 if (s1)
-_strncat(new_p1, buf1 + i1, k1 - i1);
+_catmystr(new_p1, buf1 + i1, k1 - i1);
 else
-_strncpy(new_p1, buf1 + i1, k1 - i1 + 1);
+_cpymystr(new_p1, buf1 + i1, k1 - i1 + 1);
 s1 += k1 - i1;
 i1 = k1;
 p1 = new_p1;
@@ -156,8 +156,8 @@ return (s1);
 */
 void sigintHandler(__attribute__((unused)) int sig_num)
 {
-_puts("\n");
-_puts("$ ");
-_putchar(BUF_FLUSH);
+_myplace("\n");
+_myplace("$ ");
+_putchar(b_flush);
 }
 

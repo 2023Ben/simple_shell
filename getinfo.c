@@ -24,13 +24,13 @@ int i1 = 0;
 info1->fname = av1[0];
 if (info1->arg)
 {
-info1->argv = strtow(info1->arg, " \t");
+info1->argv = st_tow(info1->arg, " \t");
 if (!info1->argv)
 {
 info1->argv = malloc(sizeof(char *) * 2);
 if (info1->argv)
 {
-info1->argv[0] = _strdup(info1->arg);
+info1->argv[0] = strd_up(info1->arg);
 info1->argv[1] = NULL;
 }
 }
@@ -49,7 +49,7 @@ replace_vars(info1);
 */
 void free_info(info_t *info1, int all1)
 {
-ffree(info1->argv);
+myf_free(info1->argv);
 info1->argv = NULL;
 info1->path = NULL;
 
@@ -63,12 +63,12 @@ if (info1->history)
 free_list(&(info1->history));
 if (info1->alias)
 free_list(&(info1->alias));
-ffree(info1->environ);
+myf_free(info1->environ);
 info1->environ = NULL;
-bfree((void **)info1->cmd_buf);
+my_freed((void **)info1->cmd_buf);
 if (info1->readfd > 2)
 close(info1->readfd);
-_putchar(BUF_FLUSH);
+_putchar(b_flush);
 }
 }
 
